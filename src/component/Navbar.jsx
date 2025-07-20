@@ -13,6 +13,13 @@ import {
 
 const Navbar = () => {
   const [menuAppear, setMenuAppear] = useState(false);
+  const links = [
+    { label: "Home", href: "#" },
+    { label: "Project", href: "#" },
+    { label: "About Me", href: "#" },
+    { label: "Contact", href: "#" },
+  ];
+  const [activeLink, setActiveLink] = useState("Home");
 
   useEffect(() => {
     const handleResize = () => {
@@ -27,13 +34,26 @@ const Navbar = () => {
     <>
       <div className="hidden w-full fixed top-0 left-0 px-8 py-4 text-white z-50 bg-transparent md:flex items-center justify-between">
         <div>
-          <img src={Logo} alt="ak logo " className="w-auto h-9" />
+          <a href="#" onClick={() => setActiveLink("Home")}>
+            <img src={Logo} alt="ak logo " className="w-auto h-9" />
+          </a>
         </div>
         <div className="flex items-center gap-6 text-base font-medium border-x px-4">
-          <div>Home</div>
-          <div>Project</div>
-          <div>About Me</div>
-          <div>Contact</div>
+          {links.map((link) => (
+            <a
+              key={link.label}
+              href={link.href}
+              onClick={() => setActiveLink(link.label)}
+              className={`relative pb-1 transition-colors duration-500 ease-in-out ${
+                activeLink === link.label ? "text-white" : "text-gray-400"
+              }`}
+            >
+              {link.label}{" "}
+              {activeLink === link.label && (
+                <span className="absolute left-1/4 bottom-0 w-3/4 h-[2px] bg-white rounded-full transition-all duration-500 ease-in-out"></span>
+              )}
+            </a>
+          ))}
         </div>
         <div className="flex items-center gap-7 text-xl">
           <a href="mailto:13.tech.ak@gmail.com" aria-label="Email">
@@ -85,26 +105,39 @@ const Navbar = () => {
             }}
           >
             <div>
-              <img src={Logo} alt="ak logo" className="w-auto h-10" />
+              <a
+                href="#"
+                onClick={() => {
+                  setActiveLink("Home");
+                  setMenuAppear(false);
+                }}
+              >
+                <img src={Logo} alt="ak logo" className="w-auto h-10" />
+              </a>
             </div>
 
             <div className="flex flex-col gap-6 mt-10 text-lg font-medium">
-              <div className="flex items-center gap-3">
-                <FaHome />
-                <span>Home</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <FaProjectDiagram />
-                <span>Project</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <FaUser />
-                <span>About Me</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <FaPhone />
-                <span>Contact</span>
-              </div>
+              {links.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  onClick={() => {
+                    setActiveLink(link.label);
+                    setMenuAppear(false);
+                  }}
+                  className={`flex items-center gap-3 text-left transition-colors duration-300 ${
+                    activeLink === link.label
+                      ? "text-white font-bold"
+                      : "text-gray-400"
+                  }`}
+                >
+                  {link.label === "Home" && <FaHome />}
+                  {link.label === "Project" && <FaProjectDiagram />}
+                  {link.label === "About Me" && <FaUser />}
+                  {link.label === "Contact" && <FaPhone />}
+                  <span>{link.label}</span>
+                </a>
+              ))}
             </div>
 
             <div className="flex gap-6 text-xl mt-auto pt-6">
