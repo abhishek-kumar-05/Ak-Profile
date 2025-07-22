@@ -20,6 +20,7 @@ const Navbar = () => {
     { label: "Contact", href: "#" },
   ];
   const [activeLink, setActiveLink] = useState("Home");
+  const [scrolledPastHero, setScrolledPastHero] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -30,32 +31,51 @@ const Navbar = () => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const heroHeight = window.innerHeight; // Hero takes full screen
+      setScrolledPastHero(window.scrollY >= heroHeight - 80);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    handleScroll(); // run once on mount
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <>
-      <div className="hidden w-full fixed top-0 left-0 px-8 py-4 text-white z-50 bg-transparent md:flex items-center justify-between">
+      <nav
+        className={`hidden w-full fixed top-0 left-0 px-16 py-4 z-50 transition-all duration-500 md:flex items-center justify-between ${
+          scrolledPastHero
+            ? "bg-[#F6F5F0] text-black shadow-lg border-black"
+            : "bg-transparent text-white border-white"
+        }`}
+      >
         <div>
           <a href="#" onClick={() => setActiveLink("Home")}>
             <img src={Logo} alt="ak logo " className="w-auto h-9" />
           </a>
         </div>
-        <div className="flex items-center gap-6 text-base font-medium border-x px-4">
+        <div className="flex items-center md:gap-4 lg:gap-6 text-base font-medium border-x border-current px-4">
           {links.map((link) => (
             <a
               key={link.label}
               href={link.href}
               onClick={() => setActiveLink(link.label)}
               className={`relative pb-1 transition-colors duration-500 ease-in-out ${
-                activeLink === link.label ? "text-white" : "text-gray-400"
+                activeLink === link.label ? "text-current" : "text-current"
               }`}
             >
               {link.label}{" "}
               {activeLink === link.label && (
-                <span className="absolute left-1/4 bottom-0 w-3/4 h-[2px] bg-white rounded-full transition-all duration-500 ease-in-out"></span>
+                <span className="absolute left-1/2 -translate-x-1/2 bottom-0 w-1/2 h-[2px] bg-current rounded-full transition-all duration-500 ease-in-out"></span>
               )}
             </a>
           ))}
         </div>
-        <div className="flex items-center gap-7 text-xl">
+        <div className="flex items-center gap-7 text-xl px-3">
           <a href="mailto:13.tech.ak@gmail.com" aria-label="Email">
             <FaEnvelope />
           </a>
@@ -74,7 +94,7 @@ const Navbar = () => {
             <FaLinkedin />
           </a>
         </div>
-      </div>
+      </nav>
 
       {/* Mobile apearence */}
       {!menuAppear && (
