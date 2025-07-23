@@ -20,7 +20,7 @@ const Hero = () => {
     <>
       <section
         id="hero"
-        className="fixed top-0 left-0 w-full h-screen z-0 flex items-center justify-center text-white px-4 pt-20 lg:pt-0 pb-6 lg:pb-0 sm:px-8 md:px-16"
+        className="fixed top-0 left-0 w-full min-h-[600px] lg:min-h-screen 2xl:min-h-0 2xl:py-28  z-0 flex items-center justify-center text-white px-4 pt-20 lg:pt-0 pb-6 lg:pb-0 sm:px-8 md:px-16"
         style={{
           background: "linear-gradient(180deg, #0F0F0F, #2C2C2C)",
         }}

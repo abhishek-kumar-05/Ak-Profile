@@ -32,14 +32,29 @@ const Navbar = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     const heroHeight = window.innerHeight; // Hero takes full screen
+  //     setScrolledPastHero(window.scrollY >= heroHeight - 80);
+  //   };
+
+  //   window.addEventListener("scroll", handleScroll);
+  //   handleScroll(); // run once on mount
+
+  //   return () => window.removeEventListener("scroll", handleScroll);
+  // }, []);
+
   useEffect(() => {
     const handleScroll = () => {
-      const heroHeight = window.innerHeight; // Hero takes full screen
-      setScrolledPastHero(window.scrollY >= heroHeight - 80);
+      const hero = document.getElementById("hero");
+      if (!hero) return;
+
+      const heroBottom = hero.offsetHeight; // actual hero height
+      setScrolledPastHero(window.scrollY >= heroBottom - 80); // change after hero is scrolled past
     };
 
     window.addEventListener("scroll", handleScroll);
-    handleScroll(); // run once on mount
+    handleScroll(); // run on mount
 
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -55,7 +70,13 @@ const Navbar = () => {
       >
         <div>
           <a href="#" onClick={() => setActiveLink("Home")}>
-            <img src={Logo} alt="ak logo " className="w-auto h-9" />
+            <img
+              src={Logo}
+              alt="ak logo "
+              className={`w-auto h-9 transition-all duration-300 ${
+                scrolledPastHero ? "invert" : ""
+              }`}
+            />
           </a>
         </div>
         <div className="flex items-center md:gap-4 lg:gap-6 text-base font-medium border-x border-current px-4">
