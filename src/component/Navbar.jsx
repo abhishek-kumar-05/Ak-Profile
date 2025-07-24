@@ -12,7 +12,6 @@ import {
 } from "react-icons/fa";
 
 const Navbar = ({ isLandscapeMobile }) => {
-  console.log("it loading :- ", isLandscapeMobile);
   const [menuAppear, setMenuAppear] = useState(false);
   const [activeLink, setActiveLink] = useState("Home");
   const [scrolledPastHero, setScrolledPastHero] = useState(false);
@@ -74,6 +73,15 @@ const Navbar = ({ isLandscapeMobile }) => {
 
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    menuAppear
+      ? (document.body.style.overflow = "hidden")
+      : (document.body.style.overflow = "");
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [menuAppear]);
 
   return (
     <>
@@ -164,7 +172,7 @@ const Navbar = ({ isLandscapeMobile }) => {
           }}
         >
           <div
-            className="absolute top-0 right-0 h-full w-64 bg-[#1F1F1F] border-2 border-[#2E2E2E] rounded-r-[10px] text-white z-40 transform  transition-transform duration-300 ease-in-out flex flex-col justify-between p-6"
+            className="absolute top-0 right-0 h-full w-64 bg-[#1F1F1F] border-2 border-[#2E2E2E] rounded-l-[10px] text-white z-40 transform  transition-transform duration-300 ease-in-out flex flex-col justify-between p-6"
             onClick={(e) => {
               e.stopPropagation();
             }}

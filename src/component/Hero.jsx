@@ -5,7 +5,6 @@ import WavingHand from "../assets/Waving-hand.svg";
 import Button from "./Button";
 
 const Hero = ({ isLandscapeMobile }) => {
-  console.log("hero checkinh :--", isLandscapeMobile);
   const heroRef = useRef();
 
   useLayoutEffect(() => {
@@ -66,8 +65,8 @@ const Hero = ({ isLandscapeMobile }) => {
           </div>
 
           <div
-            className={`flex justify-center lg:justify-end  ${
-              isLandscapeMobile ? "hidden" : "sm:hidden md:block"
+            className={`flex justify-center md:justify-end  ${
+              isLandscapeMobile ? "hidden" : ""
             } `}
           >
             <img
