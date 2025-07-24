@@ -1,5 +1,5 @@
 import Logo from "../assets/Ak_logo.svg";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { HiMenuAlt3, HiX } from "react-icons/hi";
 import {
   FaEnvelope,
@@ -11,16 +11,19 @@ import {
   FaPhone,
 } from "react-icons/fa";
 
-const Navbar = () => {
+const Navbar = ({ isLandscapeMobile }) => {
+  console.log("it loading :- ", isLandscapeMobile);
   const [menuAppear, setMenuAppear] = useState(false);
+  const [activeLink, setActiveLink] = useState("Home");
+  const [scrolledPastHero, setScrolledPastHero] = useState(false);
+  const ticking = useRef(false);
+
   const links = [
     { label: "Home", href: "#" },
     { label: "Project", href: "#" },
     { label: "About Me", href: "#" },
     { label: "Contact", href: "#" },
   ];
-  const [activeLink, setActiveLink] = useState("Home");
-  const [scrolledPastHero, setScrolledPastHero] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -46,14 +49,27 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const hero = document.getElementById("hero");
-      if (!hero) return;
+      if (!ticking.current) {
+        window.requestAnimationFrame(() => {
+          const hero = document.getElementById("hero");
+          if (!hero) return;
 
-      const heroBottom = hero.offsetHeight; // actual hero height
-      setScrolledPastHero(window.scrollY >= heroBottom - 80); // change after hero is scrolled past
+          const heroBottom = hero.offsetHeight; // actual hero height
+          const isPast = window.scrollY >= heroBottom - 80;
+          setScrolledPastHero((prev) => {
+            if (prev !== isPast) {
+              return isPast;
+            }
+            return prev;
+          });
+          ticking.current = false;
+        });
+        ticking.current = true;
+      }
+      // change after hero is scrolled past
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll(); // run on mount
 
     return () => window.removeEventListener("scroll", handleScroll);
@@ -62,7 +78,11 @@ const Navbar = () => {
   return (
     <>
       <nav
-        className={`hidden w-full fixed top-0 left-0 px-16 py-4 z-50 transition-all duration-500 md:flex items-center justify-between ${
+        className={`w-full fixed top-0 left-0 px-16 py-4 z-50 transition-all duration-500  ${
+          isLandscapeMobile
+            ? "hidden"
+            : "hidden md:flex items-center justify-between"
+        } ${
           scrolledPastHero
             ? "bg-[#F6F5F0] text-black shadow-lg border-black"
             : "bg-transparent text-white border-white"
@@ -119,7 +139,11 @@ const Navbar = () => {
 
       {/* Mobile apearence */}
       {!menuAppear && (
-        <div className="md:hidden fixed top-4 left-4 z-50">
+        <div
+          className={`fixed top-4 right-4 z-50 ${
+            isLandscapeMobile ? "block" : "md:hidden"
+          }`}
+        >
           <button
             onClick={() => {
               setMenuAppear(true);
@@ -140,7 +164,7 @@ const Navbar = () => {
           }}
         >
           <div
-            className="absolute top-0 left-0 h-full w-64 bg-[#1F1F1F] border-2 border-[#2E2E2E] rounded-r-[10px] text-white z-40 transform  transition-transform duration-300 ease-in-out flex flex-col justify-between p-6"
+            className="absolute top-0 right-0 h-full w-64 bg-[#1F1F1F] border-2 border-[#2E2E2E] rounded-r-[10px] text-white z-40 transform  transition-transform duration-300 ease-in-out flex flex-col justify-between p-6"
             onClick={(e) => {
               e.stopPropagation();
             }}
