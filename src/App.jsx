@@ -2,8 +2,10 @@ import { useState, useEffect } from "react";
 import Hero from "./component/Hero";
 import Navbar from "./component/Navbar";
 import Project from "./component/Project";
+import Loader from "./component/Loader";
 
 export default function App() {
+  const [loading, setLoading] = useState(true);
   const [isLandscapeMobile, setIsLandscapeMobile] = useState(false);
 
   useEffect(() => {
@@ -17,11 +19,24 @@ export default function App() {
     window.addEventListener("resize", checkLandscape);
     return () => window.removeEventListener("resize", checkLandscape);
   }, []);
+
+  useEffect(() => {
+    loading
+      ? (document.body.style.overflow = "hidden")
+      : (document.body.style.overflow = "");
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [loading]);
   return (
-    <>
+    <div className="relative">
+      {/* Always mounted */}
       <Navbar isLandscapeMobile={isLandscapeMobile} />
       <Hero isLandscapeMobile={isLandscapeMobile} />
       <Project />
-    </>
+
+      {/* Loader overlay */}
+      {loading && <Loader onComplete={() => setLoading(false)} />}
+    </div>
   );
 }

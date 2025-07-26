@@ -99,6 +99,7 @@ const Navbar = ({ isLandscapeMobile }) => {
         <div>
           <a href="#" onClick={() => setActiveLink("Home")}>
             <img
+              id="navbar-logo"
               src={Logo}
               alt="ak logo "
               className={`w-auto h-9 transition-all duration-300 ${
@@ -153,6 +154,7 @@ const Navbar = ({ isLandscapeMobile }) => {
           }`}
         >
           <button
+            id="navbar-logo"
             onClick={() => {
               setMenuAppear(true);
             }}
