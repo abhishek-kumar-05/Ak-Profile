@@ -1,5 +1,6 @@
 import Logo from "../assets/Ak_logo.svg";
 import { useState, useEffect, useRef } from "react";
+import gsap from "gsap";
 import { HiMenuAlt3, HiX } from "react-icons/hi";
 import {
   FaEnvelope,
@@ -11,11 +12,13 @@ import {
   FaPhone,
 } from "react-icons/fa";
 
-const Navbar = ({ isLandscapeMobile }) => {
+const Navbar = ({ isLandscapeMobile, loading }) => {
   const [menuAppear, setMenuAppear] = useState(false);
   const [activeLink, setActiveLink] = useState("Home");
   const [scrolledPastHero, setScrolledPastHero] = useState(false);
   const ticking = useRef(false);
+  const linksRef = useRef([]);
+  const underlineRef = useRef(null);
 
   const links = [
     { label: "Home", href: "#" },
@@ -33,18 +36,6 @@ const Navbar = ({ isLandscapeMobile }) => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     const heroHeight = window.innerHeight; // Hero takes full screen
-  //     setScrolledPastHero(window.scrollY >= heroHeight - 80);
-  //   };
-
-  //   window.addEventListener("scroll", handleScroll);
-  //   handleScroll(); // run once on mount
-
-  //   return () => window.removeEventListener("scroll", handleScroll);
-  // }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -74,6 +65,7 @@ const Navbar = ({ isLandscapeMobile }) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // making scroll stop in background when the {menuAppear} is true
   useEffect(() => {
     menuAppear
       ? (document.body.style.overflow = "hidden")
@@ -83,10 +75,32 @@ const Navbar = ({ isLandscapeMobile }) => {
     };
   }, [menuAppear]);
 
+  useEffect(() => {
+    const updateUnderline = () => {
+      const activeIndex = links.findIndex((l) => l.label === activeLink);
+      const activeEl = linksRef.current[activeIndex];
+
+      if (activeEl && underlineRef.current) {
+        const { offsetLeft, offsetWidth } = activeEl;
+        gsap.to(underlineRef.current, {
+          x: offsetLeft,
+          width: offsetWidth,
+          duration: 0.4,
+          ease: "power3.out",
+        });
+      }
+    };
+    updateUnderline();
+    window.addEventListener("resize", updateUnderline);
+    return () => window.removeEventListener("resize", updateUnderline);
+  }, [activeLink, links]);
+
   return (
     <>
       <nav
-        className={`w-full fixed top-0 left-0 px-16 py-4 z-50 transition-all duration-500  ${
+        className={`w-full fixed top-0 left-0 px-16 py-4 z-50 transition-opacity duration-1000 ease-in-out ${
+          loading ? "opacity-0" : "opacity-100"
+        }  ${
           isLandscapeMobile
             ? "hidden"
             : "hidden md:flex items-center justify-between"
@@ -108,22 +122,27 @@ const Navbar = ({ isLandscapeMobile }) => {
             />
           </a>
         </div>
-        <div className="flex items-center md:gap-4 lg:gap-6 text-base font-medium border-x border-current px-4">
-          {links.map((link) => (
+        <div className="relative flex items-center md:gap-4 lg:gap-6 text-base font-medium border-x border-current px-4">
+          {links.map((link, index) => (
             <a
               key={link.label}
               href={link.href}
+              ref={(el) => {
+                linksRef.current[index] = el;
+              }}
               onClick={() => setActiveLink(link.label)}
               className={`relative pb-1 transition-colors duration-500 ease-in-out ${
                 activeLink === link.label ? "text-current" : "text-current"
               }`}
             >
-              {link.label}{" "}
-              {activeLink === link.label && (
-                <span className="absolute left-1/2 -translate-x-1/2 bottom-0 w-1/2 h-[2px] bg-current rounded-full transition-all duration-500 ease-in-out"></span>
-              )}
+              {link.label}
             </a>
           ))}
+          <span
+            ref={underlineRef}
+            className="absolute bottom-0  h-[2px] bg-current rounded-full "
+            style={{ left: 0, width: 0 }}
+          ></span>
         </div>
         <div className="flex items-center gap-7 text-xl px-3">
           <a href="mailto:13.tech.ak@gmail.com" aria-label="Email">

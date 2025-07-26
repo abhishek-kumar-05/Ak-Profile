@@ -31,10 +31,14 @@ export default function App() {
   return (
     <div className="relative">
       {/* Always mounted */}
-      <Navbar isLandscapeMobile={isLandscapeMobile} />
+      <Navbar isLandscapeMobile={isLandscapeMobile} loading={loading}/>
       <Hero isLandscapeMobile={isLandscapeMobile} />
-      <Project />
 
+      {!loading && (
+        <>
+          <Project />
+        </>
+      )}
       {/* Loader overlay */}
       {loading && <Loader onComplete={() => setLoading(false)} />}
     </div>
