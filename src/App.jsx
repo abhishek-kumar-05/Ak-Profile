@@ -3,6 +3,8 @@ import Hero from "./component/Hero";
 import Navbar from "./component/Navbar";
 import Project from "./component/Project";
 import Loader from "./component/Loader";
+import About from "./component/About";
+import Contact from "./component/contact";
 
 export default function App() {
   const [loading, setLoading] = useState(true);
@@ -37,6 +39,8 @@ export default function App() {
       {!loading && (
         <>
           <Project />
+          <About/>
+          <Contact/>
         </>
       )}
       {/* Loader overlay */}
