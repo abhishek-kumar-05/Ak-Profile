@@ -48,7 +48,7 @@ const Hero = ({ isLandscapeMobile }) => {
             <h1 className="text-3xl sm:text-4xl md:text-5xl leading-tight">
               Frontend Developer
             </h1>
-            <p className="text-gray-400 max-w-md !mt-2  md:mx-0 text-sm sm:text-base">
+            <p className="text-gray-400 max-w-md !mt-2  md:mx-0 text-sm sm:text-base leading-relaxed">
               I build modern, responsive web interfaces using tools like React,
               Next.js, and Tailwind CSS. I care about clean design, clear code,
               and creating smooth user experiences that work on every screen.
