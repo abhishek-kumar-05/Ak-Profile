@@ -45,10 +45,10 @@ const Hero = ({ isLandscapeMobile }) => {
             <h2 className="text-xl sm:text-2xl">
               I'm <strong>Abhishek Kumar</strong>
             </h2>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl leading-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-tight">
               Frontend Developer
             </h1>
-            <p className="text-gray-400 max-w-md !mt-2  md:mx-0 text-sm sm:text-base leading-relaxed">
+            <p className="text-gray-400 max-w-md !mt-2 lg:!mt-4 md:mx-0 text-[15px] sm:text-[17px] leading-relaxed">
               I build modern, responsive web interfaces using tools like React,
               Next.js, and Tailwind CSS. I care about clean design, clear code,
               and creating smooth user experiences that work on every screen.

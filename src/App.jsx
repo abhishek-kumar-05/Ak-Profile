@@ -4,7 +4,7 @@ import Navbar from "./component/Navbar";
 import Project from "./component/Project";
 import Loader from "./component/Loader";
 import About from "./component/About";
-import Contact from "./component/contact";
+import TechStack from "./component/TechStack";
 
 export default function App() {
   const [loading, setLoading] = useState(true);
@@ -33,14 +33,14 @@ export default function App() {
   return (
     <div className="relative">
       {/* Always mounted */}
-      <Navbar isLandscapeMobile={isLandscapeMobile} loading={loading}/>
+      <Navbar isLandscapeMobile={isLandscapeMobile} loading={loading} />
       <Hero isLandscapeMobile={isLandscapeMobile} />
 
       {!loading && (
         <>
           <Project />
-          <About/>
-          <Contact/>
+          <About />
+          <TechStack />
         </>
       )}
       {/* Loader overlay */}
