@@ -5,6 +5,8 @@ import Project from "./component/Project";
 import Loader from "./component/Loader";
 import About from "./component/About";
 import TechStack from "./component/TechStack";
+import Cta from "./component/Cta";
+import Footer from "./component/Footer";
 
 export default function App() {
   const [loading, setLoading] = useState(true);
@@ -41,6 +43,8 @@ export default function App() {
           <Project />
           <About />
           <TechStack />
+          <Cta />
+          <Footer />
         </>
       )}
       {/* Loader overlay */}

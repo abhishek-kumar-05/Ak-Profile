@@ -4,7 +4,7 @@ const About = () => {
     <>
       <section
         id="about"
-        className="relative z-10 w-full min-h-max px-6 sm:px-8 md:px-16 py-8 flex  justify-center bg-[#F6F5F0] "
+        className="relative z-10 w-full min-h-max px-6 sm:px-8 md:px-16 py-8 lg:py-14 flex  justify-center bg-[#F6F5F0] "
       >
         <div className="max-w-7xl w-full space-y-12">
           {/* Heading */}
@@ -24,7 +24,7 @@ const About = () => {
               <img
                 src={AboutImage}
                 alt="About section illustration"
-                className="w-60 md:w-96 h-auto max-w-sm "
+                className="w-60 md-80 lg:w-96 h-auto max-w-sm "
               />
             </div>
 

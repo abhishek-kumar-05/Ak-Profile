@@ -112,7 +112,7 @@ const TechStack = () => {
   return (
     <section
       id="tech"
-      className="relative z-10 w-full py-16 px-4 bg-[#F6F5F0] flex flex-col items-center justify-center"
+      className="relative z-10 w-full px-6 sm:px-8 md:px-16 py-8 lg:py-14 bg-[#F6F5F0] flex flex-col items-center justify-center"
     >
       <div className="text-center mb-8">
         <h2 className="text-2xl md:text-4xl font-semibold text-[#0F0F0F]">
@@ -141,7 +141,7 @@ const TechStack = () => {
             src={icon}
             ref={(el) => (iconRefs.current[i] = el)}
             alt={`tech-icon-${i}`}
-            className="w-14 h-14 sm:w-16 sm:h-16 md:w-[85px] md:h-[85px] rounded-full absolute top-0 left-0 object-contain border-[2.5px] border-white shadow-md bg-white z-10"
+            className="w-14 h-14 sm:w-16 sm:h-16  lg:w-[85px] lg:h-[85px] rounded-full absolute top-0 left-0 object-contain border-[2.5px] border-white shadow-md bg-white z-10"
           />
         ))}
       </div>
