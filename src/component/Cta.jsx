@@ -1,43 +1,35 @@
 // components/ContactForm.jsx
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaEnvelope } from "react-icons/fa";
+import { useForm } from "react-hook-form";
 
 export default function Cta() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
-  const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    reset,
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+    formState: { isSubmitting, isSubmitSuccessful, errors },
+  } = useForm({ mode: "onChange" });
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    try {
-      const res = await fetch("/api/sendEmail", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+  const [serverError, setServerError] = useState("");
+  const [formLocked, setFormLocked] = useState(false);
 
-      const result = await res.json();
-      if (res.ok) {
-        setSuccess(true);
-        setFormData({ name: "", email: "", message: "" });
-      } else {
-        alert(result.error || "Failed to send message.");
-      }
-    } catch (err) {
-      console.error(err);
-      alert("Something went wrong.");
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      setFormLocked(true);
+      const timer = setTimeout(() => {
+        reset();
+        setFormLocked(false);
+      }, 3000);
+      return () => clearTimeout(timer);
     }
-    setLoading(false);
+  }, [isSubmitSuccessful, reset]);
+
+  const onSubmit = (data) => {
+    if (formLocked) return;
+    console.log(data);
   };
 
   return (
@@ -70,61 +62,75 @@ export default function Cta() {
           </div>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4 lg:pt-14">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 lg:pt-14">
           <div>
             <label className="block mb-1 font-medium text-[15px] sm:text-[17px]">
               Name
             </label>
             <input
-              type="text"
-              name="name"
-              required
-              value={formData.name}
-              onChange={handleChange}
+              {...register("name", {
+                required: "Name is required",
+                pattern: {
+                  value: /^[A-Za-z\s]+$/,
+                  message: "Name must contain only letters",
+                },
+              })}
               className="w-full border-2 border-black p-3 rounded-2xl outline-none bg-inherit"
               placeholder="Enter Your Name"
+              disabled={formLocked}
             />
+            {errors.name && (
+              <p className="text-red-500">{errors.name.message}</p>
+            )}
           </div>
           <div>
             <label className="block mb-1 font-medium text-[15px] sm:text-[17px]">
               Email
             </label>
             <input
-              type="email"
-              name="email"
-              required
-              value={formData.email}
-              onChange={handleChange}
+              {...register("email", {
+                required: "Email is required",
+                pattern: {
+                  value: /^\S+@\S+$/i,
+                  message: "Enter a valid email",
+                },
+              })}
               className="w-full border-2 border-black p-3 rounded-2xl outline-none  bg-inherit"
               placeholder="Enter Your Email"
+              disabled={formLocked}
             />
+            {errors.email && (
+              <p className="text-red-500">{errors.email.message}</p>
+            )}
           </div>
           <div>
             <label className="block mb-1 font-medium text-[15px] sm:text-[17px]">
               Message
             </label>
             <textarea
-              name="message"
-              required
-              value={formData.message}
-              onChange={handleChange}
+              {...register("message", { required: "Message is required" })}
               className="w-full border-2 border-black p-3 rounded-2xl outline-none h-32  bg-inherit"
               placeholder="Enter Your Message"
+              disabled={formLocked}
             />
+            {errors.message && (
+              <p className="text-red-500">{errors.message.message}</p>
+            )}
           </div>
+          {serverError && <p className="text-red-500">{serverError}</p>}
+          {isSubmitSuccessful && (
+            <p className="text-green-600">Message sent successfully!</p>
+          )}
+
           <div className=" flex justify-end">
             <button
               type="submit"
               className="px-4 py-1 rounded-full bg-gradient-to-b from-[#0EA5E9] to-[#8B5CF6] text-white border border-[#22D3EE]"
-              disabled={loading}
+              disabled={isSubmitting || formLocked}
             >
-              {loading ? "Sending..." : "Submit"}
+              {isSubmitting && !isSubmitSuccessful ? "Sending..." : "Submit"}
             </button>
           </div>
-
-          {success && (
-            <p className="text-green-600 mt-2">Message sent successfully!</p>
-          )}
         </form>
       </div>
     </div>
