@@ -57,7 +57,7 @@ const Hero = ({ isLandscapeMobile }) => {
               <Button text="About Me" link="#" />
               <a
                 href="#"
-                className="px-4 py-1 rounded-full  text-white border border-[#22D3EE]"
+                className="text-[15px] sm:text-[17px] px-4 py-1 rounded-full  text-white border border-[#22D3EE]"
               >
                 Explore Projects
               </a>

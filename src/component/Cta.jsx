@@ -100,7 +100,7 @@ export default function Cta() {
                   message: "Name must contain only letters",
                 },
               })}
-              className="w-full border-2 border-black p-3 rounded-2xl outline-none bg-inherit"
+              className="text-[15px] sm:text-[17px] w-full border-2 border-black p-3 rounded-2xl outline-none bg-inherit"
               placeholder="Enter Your Name"
               disabled={formLocked}
             />
@@ -127,7 +127,7 @@ export default function Cta() {
                   value.toLowerCase() !== ownerEmail.toLowerCase() ||
                   "You can not use the owner's email.",
               })}
-              className="w-full border-2 border-black p-3 rounded-2xl outline-none  bg-inherit"
+              className="text-[15px] sm:text-[17px] w-full border-2 border-black p-3 rounded-2xl outline-none  bg-inherit"
               placeholder="Enter Your Email"
               disabled={formLocked}
             />
@@ -144,7 +144,7 @@ export default function Cta() {
             <textarea
               name="message"
               {...register("message", { required: "Message is required" })}
-              className="w-full border-2 border-black p-3 rounded-2xl outline-none h-32  bg-inherit"
+              className="text-[15px] sm:text-[17px] w-full border-2 border-black p-3 rounded-2xl outline-none h-32  bg-inherit"
               placeholder="Enter Your Message"
               disabled={formLocked}
             />
@@ -170,7 +170,7 @@ export default function Cta() {
           <div className=" flex justify-end">
             <button
               type="submit"
-              className="px-4 py-1 rounded-full bg-gradient-to-b from-[#0EA5E9] to-[#8B5CF6] text-white border border-[#22D3EE]"
+              className="text-[15px] sm:text-[17px] px-4 py-1 rounded-full bg-gradient-to-b from-[#0EA5E9] to-[#8B5CF6] text-white border border-[#22D3EE]"
               disabled={isSubmitting || formLocked}
             >
               {isSubmitting && !isSubmitSuccessful ? "Sending..." : "Submit"}
