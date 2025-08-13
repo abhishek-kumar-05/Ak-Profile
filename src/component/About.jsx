@@ -6,7 +6,7 @@ const About = () => {
         id="about"
         className="relative z-10 w-full min-h-max px-6 sm:px-8 md:px-16 py-8 lg:py-14 flex  justify-center bg-[#F6F5F0] "
       >
-        <div className="max-w-7xl w-full space-y-12">
+        <div className="max-w-7xl w-full space-y-8">
           {/* Heading */}
           <div className="text-center">
             <h2 className="text-2xl md:text-4xl font-semibold tracking-tight text-[#0F0F0F]">
@@ -18,7 +18,7 @@ const About = () => {
           </div>
 
           {/* Grid Content */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
             {/* Image */}
             <div className="order-1 lg:order-2 flex justify-center lg:justify-end">
               <img
