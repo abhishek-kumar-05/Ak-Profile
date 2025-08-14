@@ -46,6 +46,7 @@ const projects = [
 const Project = () => {
   const [heroHeight, setHeroHeight] = useState(0);
   const cardsRef = useRef([]);
+  const titleRef = useRef([]);
 
   useEffect(() => {
     const updateHeight = () => {
@@ -60,31 +61,50 @@ const Project = () => {
   }, []);
 
   useLayoutEffect(() => {
+    if (!heroHeight) return; 
     const cards = cardsRef.current.filter(Boolean);
+    const titles = titleRef.current.filter(Boolean);
     if (!cards.length) return;
 
     // initial hidden state
     gsap.set(cards, { y: 50, opacity: 0 });
+    gsap.set(titles, { y: 20, opacity: 0 });
 
     // create triggers
-    const triggers = cards.map((card) =>
+    const triggers = cards.map((card, i) =>
       ScrollTrigger.create({
         trigger: card,
         start: "top 80%",
-        onEnter: () =>
+        onEnter: () => {
           gsap.to(card, {
             y: 0,
             opacity: 1,
-            duration: 1.5,
+            duration: 1.2,
             ease: "power3.out",
-          }),
-        onLeaveBack: () =>
+          });
+          gsap.to(titles[i], {
+            y: 0,
+            opacity: 1,
+            duration: 0.8,
+            ease: "power3.out",
+            delay: 0.2, // small overlap
+          });
+        },
+
+        onLeaveBack: () => {
           gsap.to(card, {
             y: 50,
             opacity: 0,
             duration: 0.5,
             ease: "power3.inOut",
-          }),
+          });
+          gsap.to(titles[i], {
+            y: 20,
+            opacity: 0,
+            duration: 0.5,
+            ease: "power3.inOut",
+          });
+        },
       })
     );
 
@@ -94,7 +114,7 @@ const Project = () => {
     return () => {
       triggers.forEach((t) => t.kill());
     };
-  }, []);
+  }, [heroHeight]);
 
   return (
     <>
@@ -128,7 +148,10 @@ const Project = () => {
                   />
                 </div>
 
-                <h3 className="mt-4 text-[15px] sm:text-[17px] tracking-normal leading-relaxed text-center underline underline-offset-4">
+                <h3
+                  ref={(el) => (titleRef.current[index] = el)}
+                  className="mt-4 text-[15px] sm:text-[17px] tracking-normal leading-relaxed text-center "
+                >
                   {project.title}
                 </h3>
               </div>
