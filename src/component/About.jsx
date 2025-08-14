@@ -6,13 +6,13 @@ const About = () => {
         id="about"
         className="relative z-10 w-full min-h-max px-6 sm:px-8 md:px-16 py-8 lg:py-14 flex  justify-center bg-[#F6F5F0] "
       >
-        <div className="max-w-7xl w-full space-y-8">
+        <div className="max-w-7xl w-full space-y-10">
           {/* Heading */}
           <div className="text-center">
             <h2 className="text-2xl md:text-4xl font-semibold tracking-tight text-[#0F0F0F]">
               Who I Am, and How I Build
             </h2>
-            <p className="mt-2 md:mt-4 text-[15px] sm:text-[17px]  text-gray-700">
+            <p className="mt-4 md:mt-6 text-[15px] sm:text-[17px]  text-gray-700">
               Crafting digital calm — fast, focused, and friction-free.
             </p>
           </div>

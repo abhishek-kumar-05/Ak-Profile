@@ -64,23 +64,23 @@ const Project = () => {
     if (!cards.length) return;
 
     // initial hidden state
-    gsap.set(cards, { y: 40, opacity: 0 });
+    gsap.set(cards, { y: 50, opacity: 0 });
 
     // create triggers
     const triggers = cards.map((card) =>
       ScrollTrigger.create({
         trigger: card,
-        start: "top 85%",
+        start: "top 80%",
         onEnter: () =>
           gsap.to(card, {
             y: 0,
             opacity: 1,
-            duration: 0.7,
+            duration: 1.5,
             ease: "power3.out",
           }),
         onLeaveBack: () =>
           gsap.to(card, {
-            y: 40,
+            y: 50,
             opacity: 0,
             duration: 0.5,
             ease: "power3.inOut",
@@ -107,13 +107,13 @@ const Project = () => {
           <h2 className="text-2xl md:text-4xl font-semibold text-[#0F0F0F] text-center">
             Browser-Ready Builds
           </h2>
-          <p className="mt-2 md:mt-4 text-[15px] sm:text-[17px] tracking-normal leading-relaxed text-gray-700 text-center">
+          <p className="mt-4 md:mt-6 text-[15px] sm:text-[17px] tracking-normal leading-relaxed text-gray-700 text-center">
             Scroll through what happens when creativity meets code and design
             meets detail.
           </p>
 
           {/* Cards Section */}
-          <div className="mt-10 flex flex-wrap justify-center gap-8">
+          <div className="mt-8 flex flex-wrap justify-center gap-8">
             {projects.map((project, index) => (
               <div
                 ref={(el) => (cardsRef.current[index] = el)}

@@ -118,7 +118,7 @@ const TechStack = () => {
         <h2 className="text-2xl md:text-4xl font-semibold text-[#0F0F0F]">
           What I Work With
         </h2>
-        <p className="mt-2 md:mt-4 text-gray-700 text-[15px] sm:text-[17px] md:max-w-auto mx-auto px-2">
+        <p className="mt-4 md:mt-6 text-gray-700 text-[15px] sm:text-[17px] md:max-w-auto mx-auto px-2">
           I use tools that simplify development and focus on creating fast,
           intuitive, and consistent user experiences.
         </p>
