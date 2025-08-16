@@ -4,47 +4,67 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import project1 from "../assets/images/thepassportfillers.png";
 import project2 from "../assets/images/defendevil.png";
+import DialogBox from "./DialogBox";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const projects = [
   {
     title: "The Passport Fillers",
-    description:
+    description: [
       "Developed a responsive travel website focused on showcasing travel packages with a clean, modern UI.",
+      "Built using Next.js and Tailwind CSS to ensure performance, scalability, and smooth design flow.",
+      "Designed intuitive layouts for easy browsing of travel packages across all device types.",
+      "Created under the guidance of Syris, following real-world frontend development standards and best practices.",
+    ],
     image: project1,
-    link: "#",
+    link: "https://thepassportfillers.com/",
   },
   {
     title: "DefendEvil",
-    description: "Another cool project description...",
+    description: [
+      "A cybersecurity tool to scan URLs and files for threats.",
+      "Built using Next.js, TailwindCSS, and VirusTotal API.",
+    ],
     image: project2,
-    link: "#",
+    link: "https://defendevil.com/",
   },
   {
     title: "The Passport Fillers 2",
-    description:
-      "Designed intuitive layouts for easy browsing of travel packages across all devices.",
+    description: [
+      "Developed a responsive travel website focused on showcasing travel packages with a clean, modern UI.",
+      "Built using Next.js and Tailwind CSS to ensure performance, scalability, and smooth design flow.",
+      "Designed intuitive layouts for easy browsing of travel packages across all device types.",
+      "Created under the guidance of Syris, following real-world frontend development standards and best practices.",
+    ],
     image: project1,
-    link: "#",
+    link: "https://thepassportfillers.com/",
   },
   {
     title: "DefendEvil 2",
-    description: "Another cool project description...",
+    description: [
+      "A cybersecurity tool to scan URLs and files for threats.",
+      "Built using Next.js, TailwindCSS, and VirusTotal API.",
+    ],
     image: project2,
-    link: "#",
+    link: "https://defendevil.com/",
   },
   {
     title: "The Passport Fillers 3",
-    description:
-      "Designed intuitive layouts for easy browsing of travel packages across all devices.",
+    description: [
+      "Developed a responsive travel website focused on showcasing travel packages with a clean, modern UI.",
+      "Built using Next.js and Tailwind CSS to ensure performance, scalability, and smooth design flow.",
+      "Designed intuitive layouts for easy browsing of travel packages across all device types.",
+      "Created under the guidance of Syris, following real-world frontend development standards and best practices.",
+    ],
     image: project1,
-    link: "#",
+    link: "https://thepassportfillers.com/",
   },
 ];
 
 const Project = () => {
   const [heroHeight, setHeroHeight] = useState(0);
+  const [projectDetail, setProjectDetail] = useState(null);
   const cardsRef = useRef([]);
   const titleRef = useRef([]);
 
@@ -61,7 +81,7 @@ const Project = () => {
   }, []);
 
   useLayoutEffect(() => {
-    if (!heroHeight) return; 
+    if (!heroHeight) return;
     const cards = cardsRef.current.filter(Boolean);
     const titles = titleRef.current.filter(Boolean);
     if (!cards.length) return;
@@ -140,7 +160,10 @@ const Project = () => {
                 key={index}
                 className="w-full sm:w-[calc(50%-2rem)] lg:w-[calc(33.333%-2rem)]"
               >
-                <div className="border-2 border-black p-2 rounded-xl flex justify-center">
+                <div
+                  onClick={() => setProjectDetail(project)}
+                  className="border-2 border-black p-2 rounded-xl flex justify-center"
+                >
                   <img
                     src={project.image}
                     alt={project.title}
@@ -149,6 +172,7 @@ const Project = () => {
                 </div>
 
                 <h3
+                  onClick={() => setProjectDetail(project)}
                   ref={(el) => (titleRef.current[index] = el)}
                   className="mt-4 text-[15px] sm:text-[17px] tracking-normal leading-relaxed text-center "
                 >
@@ -159,6 +183,15 @@ const Project = () => {
           </div>
         </div>
       </section>
+
+      {projectDetail && (
+        <DialogBox
+          title={projectDetail.title}
+          description={projectDetail.description}
+          link={projectDetail.link}
+          onClose={() => setProjectDetail(null)}
+        />
+      )}
     </>
   );
 };
