@@ -54,9 +54,19 @@ const Hero = ({ isLandscapeMobile }) => {
               and creating smooth user experiences that work on every screen.
             </p>
             <div className="flex flex-wrap  md:justify-start gap-4 !mt-4">
-              <Button text="About Me" link="#" />
+              <button
+                onClick={() =>
+                  window.open(
+                    "https://drive.google.com/file/d/11tH0yek6t_rAiJvZv3-A6S6DX8JGXU8M/view?usp=sharing",
+                    "_blank"
+                  )
+                }
+                className="px-4 py-1  text-[15px] sm:text-[17px] rounded-full bg-gradient-to-b from-[#0EA5E9] to-[#8B5CF6] text-white border border-[#22D3EE]"
+              >
+                Resume
+              </button>
               <a
-                href="#"
+                href="#projects"
                 className="text-[15px] sm:text-[17px] px-4 py-1 rounded-full  text-white border border-[#22D3EE]"
               >
                 Explore Projects
