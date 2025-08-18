@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useLayoutEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import AnimatedText from "./AnimatedText";
 
 import project1 from "../assets/images/thepassportfillers.png";
 import project2 from "../assets/images/defendevil.png";
@@ -144,13 +145,15 @@ const Project = () => {
         className="relative z-10 w-full px-6 sm:px-8 md:px-16 py-8 lg:py-14 bg-[#F6F5F0] text-black rounded-t-[35px] flex justify-center"
       >
         <div className="max-w-7xl w-full">
-          <h2 className="text-2xl md:text-4xl font-semibold text-[#0F0F0F] text-center">
-            Browser-Ready Builds
-          </h2>
-          <p className="mt-4 md:mt-6 text-[15px] sm:text-[17px] tracking-normal leading-relaxed text-gray-700 text-center">
-            Scroll through what happens when creativity meets code and design
-            meets detail.
-          </p>
+          <AnimatedText triggerOnScroll>
+            <h2 className="text-2xl md:text-4xl font-semibold text-[#0F0F0F] text-center">
+              Browser-Ready Builds
+            </h2>
+            <p className="mt-4 md:mt-6 text-[15px] sm:text-[17px] tracking-normal leading-relaxed text-gray-700 text-center">
+              Scroll through what happens when creativity meets code and design
+              meets detail.
+            </p>
+          </AnimatedText>
 
           {/* Cards Section */}
           <div className="mt-8 flex flex-wrap justify-center gap-8">

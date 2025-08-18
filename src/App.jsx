@@ -36,7 +36,7 @@ export default function App() {
     <div className="relative">
       {/* Always mounted */}
       <Navbar isLandscapeMobile={isLandscapeMobile} loading={loading} />
-      <Hero isLandscapeMobile={isLandscapeMobile} />
+      <Hero isLandscapeMobile={isLandscapeMobile} loading={loading}/>
 
       {!loading && (
         <>

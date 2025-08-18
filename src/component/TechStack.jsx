@@ -1,4 +1,5 @@
 import React, { useLayoutEffect, useRef } from "react";
+import AnimatedText from "./AnimatedText";
 import Matter from "matter-js";
 import gsap from "gsap";
 
@@ -114,15 +115,17 @@ const TechStack = () => {
       id="tech"
       className="relative z-10 w-full px-6 sm:px-8 md:px-16 py-8 lg:py-14 bg-[#F6F5F0] flex flex-col items-center justify-center"
     >
-      <div className="text-center mb-8">
-        <h2 className="text-2xl md:text-4xl font-semibold text-[#0F0F0F]">
-          What I Work With
-        </h2>
-        <p className="mt-4 md:mt-6 text-gray-700 text-[15px] sm:text-[17px] md:max-w-auto mx-auto px-2">
-          I use tools that simplify development and focus on creating fast,
-          intuitive, and consistent user experiences.
-        </p>
-      </div>
+      <AnimatedText triggerOnScroll>
+        <div className="text-center mb-8">
+          <h2 className="text-2xl md:text-4xl font-semibold text-[#0F0F0F]">
+            What I Work With
+          </h2>
+          <p className="mt-4 md:mt-6 text-gray-700 text-[15px] sm:text-[17px] md:max-w-auto mx-auto px-2">
+            I use tools that simplify development and focus on creating fast,
+            intuitive, and consistent user experiences.
+          </p>
+        </div>
+      </AnimatedText>
 
       <div
         ref={containerRef}
