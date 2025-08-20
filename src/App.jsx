@@ -7,6 +7,7 @@ import About from "./component/About";
 import TechStack from "./component/TechStack";
 import Cta from "./component/Cta";
 import Footer from "./component/Footer";
+import Banner from "./component/Banner";
 
 export default function App() {
   const [loading, setLoading] = useState(true);
@@ -36,11 +37,12 @@ export default function App() {
     <div className="relative">
       {/* Always mounted */}
       <Navbar isLandscapeMobile={isLandscapeMobile} loading={loading} />
-      <Hero isLandscapeMobile={isLandscapeMobile} loading={loading}/>
+      <Hero isLandscapeMobile={isLandscapeMobile} loading={loading} />
 
       {!loading && (
         <>
           <Project />
+          <Banner />
           <About />
           <TechStack />
           <Cta />
