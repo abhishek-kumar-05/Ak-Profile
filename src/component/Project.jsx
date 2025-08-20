@@ -165,7 +165,7 @@ const Project = () => {
               >
                 <div
                   onClick={() => setProjectDetail(project)}
-                  className="border-2 border-black p-2 rounded-xl flex justify-center"
+                  className="border-2 border-gray-300 p-2 rounded-xl flex justify-center"
                 >
                   <img
                     src={project.image}
