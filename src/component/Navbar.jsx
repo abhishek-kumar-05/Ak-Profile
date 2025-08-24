@@ -88,7 +88,7 @@ const Navbar = ({ isLandscapeMobile, loading }) => {
     const computeActive = () => {
       const y = window.scrollY;
 
-      const viewportCenter = y + window.innerHeight / 2; 
+      const viewportCenter = y + window.innerHeight / 2;
 
       // At the very top → Home
       if (y < 10) {
@@ -196,7 +196,7 @@ const Navbar = ({ isLandscapeMobile, loading }) => {
             />
           </a>
         </div>
-        <div className="relative flex items-center md:gap-4 lg:gap-6 text-base font-medium border-x border-current px-4">
+        <div className="relative flex items-center md:gap-4 lg:gap-8 text-base font-medium border-x border-current px-4">
           {links.map((link, index) => (
             <a
               key={link.label}
@@ -218,7 +218,7 @@ const Navbar = ({ isLandscapeMobile, loading }) => {
             style={{ left: 0, width: 0 }}
           ></span>
         </div>
-        <div className="flex items-center gap-7 text-xl px-3">
+        <div className="flex items-center gap-7 text-2xl px-3">
           <a href="mailto:13.tech.ak@gmail.com" aria-label="Email">
             <FaEnvelope />
           </a>
@@ -290,7 +290,7 @@ const Navbar = ({ isLandscapeMobile, loading }) => {
                   key={link.label}
                   href={link.href}
                   onClick={(e) => {
-                    handleNavClick(e, link); // ✅ changed
+                    handleNavClick(e, link);
                     setMenuAppear(false);
                   }}
                   className={`flex items-center gap-3 text-left transition-colors duration-300 ${
@@ -308,7 +308,7 @@ const Navbar = ({ isLandscapeMobile, loading }) => {
               ))}
             </div>
 
-            <div className="flex gap-6 text-xl mt-auto pt-6">
+            <div className="flex gap-6 text-2xl mt-auto pt-6">
               <a href="mailto:13.tech.ak@gmail.com" aria-label="Email">
                 <FaEnvelope />
               </a>
