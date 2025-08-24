@@ -32,9 +32,9 @@ const Banner = () => {
   }, []);
 
   return (
-    <div className="relative z-10 w-full bg-[#F6F5F0] py-8 lg:py-14 overflow-hidden">
+    <div className="relative z-10 w-full bg-[#F6F5F0] py-8 lg:py-14 overflow-hidden flex justify-center">
       <div
-        className="bg-gradient-to-b from-[#0EA5E9] to-[#8B5CF6] border border-[#22D3EE] overflow-hidden py-1"
+        className="max-w-7xl  bg-gradient-to-b from-[#0EA5E9] to-[#8B5CF6] border border-[#22D3EE] overflow-hidden py-1"
         style={{ transform: "rotate(-4deg)" }}
       >
         <div
