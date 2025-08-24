@@ -3,63 +3,49 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import AnimatedText from "./AnimatedText";
 
-import project1 from "../assets/images/thepassportfillers.png";
-import project2 from "../assets/images/defendevil.png";
+import project1 from "../assets/images/TIP.png";
+import project2 from "../assets/images/Ak_portfolio.png";
+import project3 from "../assets/images/Image_Resizer.png";
+
 import DialogBox from "./DialogBox";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const projects = [
   {
-    title: "The Passport Fillers",
+    title: "Threat Inelligence Program",
     description: [
-      "Developed a responsive travel website focused on showcasing travel packages with a clean, modern UI.",
-      "Built using Next.js and Tailwind CSS to ensure performance, scalability, and smooth design flow.",
-      "Designed intuitive layouts for easy browsing of travel packages across all device types.",
-      "Created under the guidance of Syris, following real-world frontend development standards and best practices.",
+      "A full-stack web app that scan URLs and files for threat visualizes that result with charts. Also aggregates cyber security news for informed analyis.",
+      "Built a responsive dashboard with Next.js and styles using Tailwind CSS.",
+      "Integrated VirusTotal API to analyze files and URLs, displaying real-time threat status.",
+      "Implemented firebase Auth and Firestore for secure login and saving scan history.",
+      "Fetched cyber security news using Hacker News API and Cheerio for content scraping.",
+      "Visualize threat data using Recharts(pie, line, bar charts) and optional calendar heatmap.",
     ],
     image: project1,
-    link: "https://thepassportfillers.com/",
+    link: "https://github.com/abhishek-kumar-05/Next-js-Threat-Intelligence-Program",
   },
   {
-    title: "DefendEvil",
+    title: "Developer Portfolio",
     description: [
-      "A cybersecurity tool to scan URLs and files for threats.",
-      "Built using Next.js, TailwindCSS, and VirusTotal API.",
+      "Built with React + Vite for fast performance and smooth developer experience",
+      "Styled using Tailwind CSS with custom animations (GSAP/ScrollTrigger) for modern interactions",
+      "Fully responsive design optimized for desktop, tablet, and mobile devices",
+      "Deployed as a progressive, SEO-friendly portfolio with clean code structure",
     ],
     image: project2,
     link: "https://defendevil.com/",
   },
   {
-    title: "The Passport Fillers 2",
+    title: "Image Resizer",
     description: [
-      "Developed a responsive travel website focused on showcasing travel packages with a clean, modern UI.",
-      "Built using Next.js and Tailwind CSS to ensure performance, scalability, and smooth design flow.",
-      "Designed intuitive layouts for easy browsing of travel packages across all device types.",
-      "Created under the guidance of Syris, following real-world frontend development standards and best practices.",
+      "Created a platform that allows you to alter the format type of images and even reduce their size with aid of Reactjs.",
+      "Created a drop-and-drag UI with react-dropzone.",
+      "Enabled image resizing using Pica for faster uploads and lower bandwidth usage.",
+      "Built responsive, user-friendly layout using core React concepts",
     ],
-    image: project1,
-    link: "https://thepassportfillers.com/",
-  },
-  {
-    title: "DefendEvil 2",
-    description: [
-      "A cybersecurity tool to scan URLs and files for threats.",
-      "Built using Next.js, TailwindCSS, and VirusTotal API.",
-    ],
-    image: project2,
-    link: "https://defendevil.com/",
-  },
-  {
-    title: "The Passport Fillers 3",
-    description: [
-      "Developed a responsive travel website focused on showcasing travel packages with a clean, modern UI.",
-      "Built using Next.js and Tailwind CSS to ensure performance, scalability, and smooth design flow.",
-      "Designed intuitive layouts for easy browsing of travel packages across all device types.",
-      "Created under the guidance of Syris, following real-world frontend development standards and best practices.",
-    ],
-    image: project1,
-    link: "https://thepassportfillers.com/",
+    image: project3,
+    link: "https://github.com/abhishek-kumar-05/React-Image-Processing",
   },
 ];
 
@@ -165,7 +151,7 @@ const Project = () => {
               >
                 <div
                   onClick={() => setProjectDetail(project)}
-                  className="border-2 border-gray-300 p-2 rounded-xl flex justify-center"
+                  className="border-2 border-gray-300 p-2 rounded-xl flex justify-center hover:cursor-pointer"
                 >
                   <img
                     src={project.image}
@@ -177,7 +163,7 @@ const Project = () => {
                 <h3
                   onClick={() => setProjectDetail(project)}
                   ref={(el) => (titleRef.current[index] = el)}
-                  className="mt-4 text-[15px] sm:text-[17px] tracking-normal leading-relaxed text-center "
+                  className="mt-4 text-[15px] sm:text-[17px] tracking-normal leading-relaxed text-center hover:cursor-pointer "
                 >
                   {project.title}
                 </h3>
