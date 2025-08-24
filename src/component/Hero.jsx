@@ -1,8 +1,11 @@
 import { useEffect, useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import ProfileImage from "../assets/Hero_Image.svg";
 import WavingHand from "../assets/Waving-hand.svg";
 import AnimatedText from "./AnimatedText";
+
+gsap.registerPlugin(ScrollToPlugin);
 
 const Hero = ({ isLandscapeMobile, loading }) => {
   const heroRef = useRef();
@@ -37,6 +40,22 @@ const Hero = ({ isLandscapeMobile, loading }) => {
       );
     }
   }, [loading]);
+
+  const handleScrollLink = (e) => {
+    e.preventDefault();
+
+    const target = document.getElementById("projects");
+    if (target) {
+      gsap.to(window, {
+        scrollTo: {
+          y: target,
+          offsetY: 70,
+        },
+        duration: 0.8,
+        ease: "power2.out",
+      });
+    }
+  };
 
   return (
     <>
@@ -98,6 +117,7 @@ const Hero = ({ isLandscapeMobile, loading }) => {
                 </button>
                 <a
                   href="#projects"
+                  onClick={handleScrollLink}
                   className="text-[15px] sm:text-[17px] px-4 py-1 rounded-full  text-white border border-[#22D3EE]"
                 >
                   Explore Projects
