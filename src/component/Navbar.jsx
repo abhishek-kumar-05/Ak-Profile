@@ -1,7 +1,8 @@
 import Logo from "../assets/Ak_logo.svg";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import gsap from "gsap";
-import { HiMenuAlt3, HiX } from "react-icons/hi";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+import { HiMenuAlt3 } from "react-icons/hi";
 import {
   FaEnvelope,
   FaGithub,
@@ -12,6 +13,8 @@ import {
   FaPhone,
 } from "react-icons/fa";
 
+gsap.registerPlugin(ScrollToPlugin);
+
 const Navbar = ({ isLandscapeMobile, loading }) => {
   const [menuAppear, setMenuAppear] = useState(false);
   const [activeLink, setActiveLink] = useState("Home");
@@ -19,13 +22,17 @@ const Navbar = ({ isLandscapeMobile, loading }) => {
   const ticking = useRef(false);
   const linksRef = useRef([]);
   const underlineRef = useRef(null);
+  const navRef = useRef(null);
 
-  const links = [
-    { label: "Home", href: "#" },
-    { label: "Project", href: "#" },
-    { label: "About Me", href: "#" },
-    { label: "Contact", href: "#" },
-  ];
+  const links = useMemo(
+    () => [
+      { label: "Home", href: "#hero" },
+      { label: "Project", href: "#projects" },
+      { label: "About Me", href: "#about" },
+      { label: "Contact", href: "#contact" },
+    ],
+    []
+  );
 
   useEffect(() => {
     const handleResize = () => {
@@ -76,10 +83,48 @@ const Navbar = ({ isLandscapeMobile, loading }) => {
   }, [menuAppear]);
 
   useEffect(() => {
+    const ids = links.map((l) => l.href.slice(1));
+
+    const computeActive = () => {
+      const y = window.scrollY;
+
+      const viewportCenter = y + window.innerHeight / 2; 
+
+      // At the very top → Home
+      if (y < 10) {
+        setActiveLink("Home");
+        return;
+      }
+
+      let current = "Home";
+      for (let i = 0; i < ids.length; i++) {
+        const el = document.getElementById(ids[i]);
+        if (!el) continue;
+
+        const top = el.getBoundingClientRect().top + window.scrollY;
+
+        // If the section top is above the middle of the screen, mark it active
+        if (viewportCenter >= top) {
+          current = links[i].label;
+        }
+      }
+      setActiveLink(current);
+    };
+
+    window.addEventListener("scroll", computeActive, { passive: true });
+    window.addEventListener("resize", computeActive);
+    computeActive(); // initial
+    return () => {
+      window.removeEventListener("scroll", computeActive);
+      window.removeEventListener("resize", computeActive);
+    };
+  }, [links]);
+
+  // Underline animation stays the same
+  useEffect(() => {
     const updateUnderline = () => {
       const activeIndex = links.findIndex((l) => l.label === activeLink);
       const activeEl = linksRef.current[activeIndex];
-
       if (activeEl && underlineRef.current) {
         const { offsetLeft, offsetWidth } = activeEl;
         gsap.to(underlineRef.current, {
@@ -95,9 +140,35 @@ const Navbar = ({ isLandscapeMobile, loading }) => {
     return () => window.removeEventListener("resize", updateUnderline);
   }, [activeLink, links]);
 
+  // Optional: smooth-scroll with nav offset so spy + underline never desync
+  const handleNavClick = (e, link) => {
+    e.preventDefault();
+    const targetId = link.href.slice(1);
+
+    if (targetId === "hero" || link.label === "Home") {
+      gsap.to(window, {
+        scrollTo: { y: 0 },
+        duration: 0.8,
+        ease: "power2.out",
+        onComplete: () => setActiveLink(link.label),
+      });
+    } else {
+      const section = document.getElementById(targetId);
+      if (section) {
+        gsap.to(window, {
+          scrollTo: { y: section, offsetY: 70 },
+          duration: 0.8,
+          ease: "power2.out",
+          onComplete: () => setActiveLink(link.label),
+        });
+      }
+    }
+  };
+
   return (
     <>
       <nav
+        ref={navRef}
         className={`w-full fixed top-0 left-0 px-16 py-4 z-50 transition-opacity duration-1000 ease-in-out ${
           loading ? "opacity-0" : "opacity-100"
         }  ${
@@ -111,7 +182,10 @@ const Navbar = ({ isLandscapeMobile, loading }) => {
         }`}
       >
         <div>
-          <a href="#" onClick={() => setActiveLink("Home")}>
+          <a
+            href="#hero"
+            onClick={(e) => handleNavClick(e, { href: "#hero", label: "Home" })}
+          >
             <img
               id="navbar-logo"
               src={Logo}
@@ -130,7 +204,7 @@ const Navbar = ({ isLandscapeMobile, loading }) => {
               ref={(el) => {
                 linksRef.current[index] = el;
               }}
-              onClick={() => setActiveLink(link.label)}
+              onClick={(e) => handleNavClick(e, link)}
               className={`relative pb-1 transition-colors duration-500 ease-in-out ${
                 activeLink === link.label ? "text-current" : "text-current"
               }`}
@@ -200,9 +274,9 @@ const Navbar = ({ isLandscapeMobile, loading }) => {
           >
             <div>
               <a
-                href="#"
-                onClick={() => {
-                  setActiveLink("Home");
+                href="#hero"
+                onClick={(e) => {
+                  handleNavClick(e, { href: "#hero", label: "Home" });
                   setMenuAppear(false);
                 }}
               >
@@ -215,8 +289,8 @@ const Navbar = ({ isLandscapeMobile, loading }) => {
                 <a
                   key={link.label}
                   href={link.href}
-                  onClick={() => {
-                    setActiveLink(link.label);
+                  onClick={(e) => {
+                    handleNavClick(e, link); // ✅ changed
                     setMenuAppear(false);
                   }}
                   className={`flex items-center gap-3 text-left transition-colors duration-300 ${
