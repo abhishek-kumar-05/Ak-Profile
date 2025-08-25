@@ -34,7 +34,7 @@ const projects = [
       "Deployed as a progressive, SEO-friendly portfolio with clean code structure",
     ],
     image: project2,
-    link: "https://defendevil.com/",
+    link: "https://abhishek-profile.web.app/",
   },
   {
     title: "Image Resizer",
